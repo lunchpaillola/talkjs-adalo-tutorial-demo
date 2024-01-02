@@ -1,0 +1,12 @@
+{
+  "displayName": "TalkJs",
+  "components": [
+    {
+      "name": "TalkJs",
+      "manifest": "./src/components/TalkJs/manifest.json"
+    }
+  ],
+  "author": "",
+  "description": "",
+  "logo": "./example-logo.png"
+}
