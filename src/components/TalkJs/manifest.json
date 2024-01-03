@@ -6,16 +6,28 @@
   "icon": "./example-thumbnail.png",
   "props": [
     {
-      "name": "text",
-      "displayName": "Text",
+      "name": "talkJsApplicationID",
+      "displayName": "appID",
       "type": "text",
-      "default": "Happy Hacking"
+      "helpText": "The talkJS app ID"
     },
     {
-      "name": "color",
-      "displayName": "Color",
-      "type": "color",
-      "default": "#00A898"
+      "name": "userId",
+      "displayName": "ID",
+      "type": "text",
+      "helpText": "The id of the user joining this conversation"
+    },
+    {
+      "name": "name",
+      "displayName": "Name",
+      "type": "text",
+      "helpText": "The display name for the participant in the conversation"
+    },
+    {
+      "name": "photo",
+      "displayName": "Photo",
+      "type": "image",
+      "helpText": "The optional user image for the call"
     }
   ]
 }
