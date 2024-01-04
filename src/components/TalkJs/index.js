@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import * as TalkRn from '@talkjs/react-native';
 
 const TalkJs = (props) => {
-	const { talkJsApplicationID, userId, name, email, photo } = props
+	const { talkJsApplicationID, userId, name, email, photo, participantList, role } =props;
 
  const me = {
 		id: userId,
