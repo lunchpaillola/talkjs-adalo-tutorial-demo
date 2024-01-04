@@ -5,7 +5,7 @@ import { Session, Inbox } from "@talkjs/react";
 import sha256 from 'crypto-js/sha256';
 
 const TalkJs = (props) => {
-  const { editor, talkJsApplicationID, userId, name, email, photo, participantList } =props;
+  const { editor, talkJsApplicationID, userId, name, email, photo, participantList, role } =props;
   const ID = talkJsApplicationID;
 
   if (editor) {
@@ -25,6 +25,7 @@ const TalkJs = (props) => {
 			name: name,
 			email: email,
 			photoUrl: photo.uri,
+      role: role,
 	};
 
   const createUniqueConversationId = (participantList) => {
@@ -32,13 +33,10 @@ const TalkJs = (props) => {
       participantList.map(participant => participant?.participantDetails?.pUserId)
     )).sort((a, b) => a - b);
 
-    console.log('userIds', userIds )
     const uniqueSortedIds = Array.from(new Set(userIds)).sort();
     const concatenatedIds = uniqueSortedIds.join("-");
-    console.log('concatenatedIds', concatenatedIds);
     const hash = sha256(concatenatedIds);
 
-    console.log('the hash', hash.toString());
   
 
     return hash.toString();
@@ -55,6 +53,7 @@ const TalkJs = (props) => {
           name: participantDetails?.participantDetails?.pName,
           email: participantDetails?.participantDetails?.pEmail,
           photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
+          role: participantDetails?.participantDetails?.pRole,
         });
         conversation.setParticipant(participant);
       });
@@ -64,7 +63,6 @@ const TalkJs = (props) => {
   const syncConversation = useCallback((session) => {
 
     const conversationId = createUniqueConversationId(participantList)
-    console.log('conversationId', conversationId);
     const conversation = session.getOrCreateConversation(conversationId);
     conversation.setParticipant(session.me);
   

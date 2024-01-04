@@ -30,6 +30,13 @@
       "helpText": "The optional user image for the call"
     },
     {
+      "name": "role",
+      "displayName": "Role",
+      "type": "text",
+      "default": "default",
+      "helpText": "The role for the participant set roles in talkJS"
+    },
+    {
       "name": "participantList",
       "displayName": "Participants",
       "type": "list"
@@ -38,6 +45,7 @@
   "childComponents": [
     {
       "name": "participantDetails",
+      "displayName": "Participant Details",
       "role": "listItem",
       "reference": "participantList",
       "props": [
@@ -52,10 +60,22 @@
           "type": "text"
         },
         {
+          "name": "pEmail",
+          "displayName": "Email",
+          "type": "text"
+        },
+        {
           "name": "pPhoto",
           "displayName": "photo",
           "type": "image",
           "helpText": "The optional user image for the call"
+        },
+        {
+          "name": "pRole",
+          "displayName": "Role",
+          "type": "text",
+          "default": "default",
+          "helpText": "The role for the participant set roles in talkJS"
         }
       ]
     }
