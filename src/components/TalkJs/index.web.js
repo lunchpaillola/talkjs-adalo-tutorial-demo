@@ -4,7 +4,9 @@ import Talk from "talkjs";
 import { Session, Chatbox } from "@talkjs/react";
 
 const TalkJs = (props) => {
-  const { talkJsApplicationID, userId, name, email, photo } = props;
+  const { talkJsApplicationID, userId, name, email, photo, participantList } = props;
+
+		console.log('participantList', participantList);
 
 		const me = {
 			id: userId,
