@@ -1,13 +1,25 @@
 import React, { useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import Talk from "talkjs";
-import { Session, Chatbox } from "@talkjs/react";
+import { Session, Inbox } from "@talkjs/react";
+import sha256 from 'crypto-js/sha256';
 
 const TalkJs = (props) => {
-  const { talkJsApplicationID, userId, name, email, photo, participantList } = props;
+  const { editor, talkJsApplicationID, userId, name, email, photo, participantList } =props;
+  const ID = talkJsApplicationID;
 
-		console.log('participantList', participantList);
+  if (editor) {
+    return null
+  }
 
+		if (!talkJsApplicationID || !userId) {
+			return (
+					<View style={styles.centeredLoader}>
+							<ActivityIndicator size="large" color="#0000ff" />
+					</View>
+			);
+	}
+ 
 		const me = {
 			id: userId,
 			name: name,
@@ -15,49 +27,86 @@ const TalkJs = (props) => {
 			photoUrl: photo.uri,
 	};
 
-	const ID = talkJsApplicationID;
-	const other = {
-			id: 987654321,
-			name: "Sarah",
-			email: "lola.ojabowale@gmail.com",
-			photoUrl: "https://talkjs.com/images/avatar-5.jpg",
-	};
+  const createUniqueConversationId = (participantList) => {
+    const userIds = Array.from(new Set(
+      participantList.map(participant => participant?.participantDetails?.pUserId)
+    )).sort((a, b) => a - b);
 
+    console.log('userIds', userIds )
+    const uniqueSortedIds = Array.from(new Set(userIds)).sort();
+    const concatenatedIds = uniqueSortedIds.join("-");
+    console.log('concatenatedIds', concatenatedIds);
+    const hash = sha256(concatenatedIds);
+
+    console.log('the hash', hash.toString());
+  
+
+    return hash.toString();
+
+  };
+  
   const syncUser = useCallback(() => new Talk.User(me), []);
 
-		const syncConversation = useCallback((session) => {
-			// JavaScript SDK code here
-			const conversation = session.getOrCreateConversation('welcome');
+  const addParticipantsToConversation = (conversation, participantList) => {
+    if (participantList && participantList.length > 0) {
+      participantList.forEach(participantDetails => {
+        const participant = new Talk.User({
+          id: participantDetails?.participantDetails?.pUserId,
+          name: participantDetails?.participantDetails?.pName,
+          email: participantDetails?.participantDetails?.pEmail,
+          photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
+        });
+        conversation.setParticipant(participant);
+      });
+    }
+  };
+  
+  const syncConversation = useCallback((session) => {
 
-			const other = new Talk.User({
-					id: 'frank',
-					name: 'Frank',
-					email: 'frank@example.com',
-					photoUrl: 'https://talkjs.com/new-web/avatar-8.jpg',
-					welcomeMessage: 'Hey, how can I help?',
-					role: 'default',
-			});
-			conversation.setParticipant(session.me);
-			conversation.setParticipant(other);
+    const conversationId = createUniqueConversationId(participantList)
+    console.log('conversationId', conversationId);
+    const conversation = session.getOrCreateConversation(conversationId);
+    conversation.setParticipant(session.me);
+  
+    addParticipantsToConversation(conversation, participantList);
+  
+    return conversation;
+  }, [participantList]);
+  
 
-			return conversation;
-	}, []);
-
+		const inboxProps = {
+			style: { width: "100%", height: 600 },
+			className: "chat-container",
+			loadingComponent: (
+					<View style={styles.container}>
+							<ActivityIndicator size="large" color="#0000ff" />
+					</View>
+			),
+			// Add syncConversation prop only if participantList is defined and not empty
+			...(participantList && participantList.length > 0 && { syncConversation }),
+	};
 
   return (
     <View style={styles.wrapper}>
       <Session appId={ID} syncUser={syncUser}>
-        <Chatbox syncConversation={syncConversation} style={{ width: '100%', height: '500px' }} />
+        <Inbox {...inboxProps} />
       </Session>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   wrapper: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    flex: 1,
+    height: 600,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
