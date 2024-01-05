@@ -12,7 +12,7 @@ const ConversationUI = ({
   const conversation = TalkRn.getConversationBuilder(conversationId);
 
   conversation.setParticipant(me);
-  addParticipantsToConversation(TalkRn, conversation, participantList);
+  addParticipantsToConversation(TalkRn, conversation, participantList, true);
 
   return (
     <View style={styles.wrapper}>

@@ -17,7 +17,7 @@ const ConversationUI = ({
       const conversation = session.getOrCreateConversation(conversationId);
       conversation.setParticipant(session.me);
 
-      addParticipantsToConversation(Talk, conversation, participantList);
+      addParticipantsToConversation(Talk, conversation, participantList, false);
 
       return conversation;
     },
