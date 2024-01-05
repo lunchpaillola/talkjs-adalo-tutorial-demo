@@ -12,7 +12,6 @@ const ConversationUI = ({
 }) => {
   const syncUser = useCallback(() => new Talk.User(me), []);
 
-  console.log("conversationID", conversationId);
   const syncConversation = useCallback(
     (session) => {
       const conversation = session.getOrCreateConversation(conversationId);
