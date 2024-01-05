@@ -1,90 +1,117 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import ConversationUI  from "./ConversationUI";
 import sha256 from "crypto-js/sha256";
-import * as TalkRn from '@talkjs/react-native';
 
 const TalkJs = (props) => {
-	const {
-		editor,
-		talkJsApplicationID,
-		userId,
-		name,
-		email,
-		photo,
-		participantList,
-		role,
-} = props;
-const ID = talkJsApplicationID;
+  const {
+    editor,
+    talkJsApplicationID,
+    userId,
+    name,
+    email,
+    photo,
+    participantList,
+    role,
+  } = props;
+  const ID = talkJsApplicationID;
+		const [me, setMe] = useState(null);
 
- const me = {
-		id: userId,
-		name: name,
-		email: email,
-		photoUrl: photo.uri,
-};
+  if (editor) {
+			//later will flesh this out with my editor code
+    return null;
+  }
 
-if (!talkJsApplicationID || !userId) {
-	return (
-			<View style={styles.centeredLoader}>
-					<ActivityIndicator size="large" color="#0000ff" />
-			</View>
-	);
-}
+  if (!talkJsApplicationID || !userId || !name) {
+    return (
+      <View style={styles.centeredLoader}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
-const createUniqueConversationId = (participantList) => {
-	const userIds = Array.from(
-			new Set(
-					participantList.map(
-							(participant) => participant?.participantDetails?.pUserId
-					)
-			)
-	).sort((a, b) => a - b);
 
-	const uniqueSortedIds = Array.from(new Set(userIds)).sort();
-	const concatenatedIds = uniqueSortedIds.join("-");
-	const hash = sha256(concatenatedIds);
-
-	return hash.toString();
-};
-
-const addParticipantsToConversation = (conversation, participantList) => {
-	if (participantList && participantList.length > 0) {
-			participantList.forEach((participantDetails) => {
-					const participant = new TalkRn.User({
-							id: participantDetails?.participantDetails?.pUserId,
-							name: participantDetails?.participantDetails?.pName,
-							email: participantDetails?.participantDetails?.pEmail,
-							photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
-							role: participantDetails?.participantDetails?.pRole,
+		useEffect(() => {
+			if (userId && name) {
+					setMe({
+							id: userId,
+							name: name,
+							email: email,
+							photoUrl: photo.uri,
+							role: role,
 					});
-					conversation.setParticipant(participant);
-			});
-	}
+			}
+	}, [userId, name]);
+
+	if (!me || !ID) {
+		return (
+				<View style={styles.centeredLoader}>
+						<ActivityIndicator size="large" color="#0000ff" />
+				</View>
+		);
+}
+
+
+  const createUniqueConversationId = (participantList) => {
+    const userIds = Array.from(
+      new Set(
+        participantList.map(
+          (participant) => participant?.participantDetails?.pUserId
+        )
+      )
+    ).sort((a, b) => a - b);
+
+    const uniqueSortedIds = Array.from(new Set(userIds)).sort();
+    const concatenatedIds = uniqueSortedIds.join("-");
+    const hash = sha256(concatenatedIds);
+
+    return hash.toString();
+  };
+
+ let conversationId
+		if(participantList){
+ conversationId = createUniqueConversationId(participantList);
+		}
+
+
+  const addParticipantsToConversation = (TalkLibrary, conversation, participantList) => {
+			if (participantList && participantList.length > 0) {
+					participantList.forEach((participantDetails) => {
+							const participant = new TalkLibrary.User({
+									id: participantDetails?.participantDetails?.pUserId,
+									name: participantDetails?.participantDetails?.pName,
+									email: participantDetails?.participantDetails?.pEmail,
+									photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
+									role: participantDetails?.participantDetails?.pRole,
+							});
+							conversation.setParticipant(participant);
+					});
+			}
+	};
+
+  return (
+    <ConversationUI
+      conversationId={conversationId}
+      me={me}
+      participantList={participantList}
+      ID={talkJsApplicationID}
+						addParticipantsToConversation={addParticipantsToConversation}
+    ></ConversationUI>
+  );
 };
 
-const conversationId = createUniqueConversationId(participantList);
-const conversation = TalkRn.getConversationBuilder(conversationId);
-
-conversation.setParticipant(me);
-addParticipantsToConversation(conversation, participantList);
-
-
-
-	return(
-		<View style={styles.wrapper}>
-			<TalkRn.Session appId={ID} me={me}>
-			<TalkRn.Chatbox conversationBuilder={conversation} />
-			</TalkRn.Session>
-		</View>
-	)
-}
+export default TalkJs;
 
 const styles = StyleSheet.create({
 	wrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	}
-})
-
-export default TalkJs
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
+	},
+	container: {
+			flex: 1,
+			height: 600,
+			justifyContent: "center",
+			alignItems: "center",
+	},
+});
