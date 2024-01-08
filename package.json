@@ -28,6 +28,7 @@
     "@talkjs/react": "^0.1.4",
     "@talkjs/react-native": "^0.7.0",
     "crypto-js": "^4.2.0",
+    "react-native-svg": "^14.1.0",
     "react-native-webview": "^13.6.4",
     "talkjs": "^0.18.0"
   }

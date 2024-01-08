@@ -13,14 +13,35 @@ const TalkJs = (props) => {
     photo,
     participantList,
     role,
+    _height,
   } = props;
   const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
-  console.log("participantlist", participantList);
+  console.log("height", _height);
+  useEffect(() => {
+    if (userId && name) {
+      setMe({
+        id: userId,
+        name: name,
+        photoUrl: photo.uri,
+        role: role,
+      });
+    }
+  }, [userId, name, email, role]);
 
   if (editor) {
     //later will flesh this out with my editor code
-    return null;
+    return (
+      <View
+        style={{
+          flex: 1,
+          height: 600,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor:ready,
+        }}
+      />
+    );
   }
 
   if (!talkJsApplicationID || !userId || !name) {
@@ -30,18 +51,6 @@ const TalkJs = (props) => {
       </View>
     );
   }
-
-  useEffect(() => {
-    if (userId && name) {
-      setMe({
-        id: userId,
-        name: name,
-        email: email,
-        photoUrl: photo.uri,
-        role: role,
-      });
-    }
-  }, [userId, name]);
 
   if (!me || !ID) {
     return (
@@ -85,7 +94,7 @@ const TalkJs = (props) => {
           id: participantDetails?.participantDetails?.pUserId,
           name: participantDetails?.participantDetails?.pName,
           email: participantDetails?.participantDetails?.pEmail,
-          photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
+          photoUrl: participantDetails?.participantDetails?.pPhoto.uri,
           role: participantDetails?.participantDetails?.pRole,
         };
         if (isNative) {
@@ -105,7 +114,8 @@ const TalkJs = (props) => {
       participantList={participantList}
       ID={talkJsApplicationID}
       addParticipantsToConversation={addParticipantsToConversation}
-    ></ConversationUI>
+      _height={_height}
+    />
   );
 };
 

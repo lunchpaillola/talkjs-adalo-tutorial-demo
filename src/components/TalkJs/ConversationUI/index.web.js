@@ -9,8 +9,11 @@ const ConversationUI = ({
   participantList,
   conversationId,
   addParticipantsToConversation,
+  _height,
 }) => {
   const syncUser = useCallback(() => new Talk.User(me), []);
+
+  console.log('_height',_height);
 
   const syncConversation = useCallback(
     (session) => {
