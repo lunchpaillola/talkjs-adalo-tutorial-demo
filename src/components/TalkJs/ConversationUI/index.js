@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import * as TalkRn from '@talkjs/react-native';
-import ConversationList from './ConversationList';
 import Header from './InboxHeader';
 
 const ConversationUI = ({
@@ -39,7 +38,7 @@ const ConversationUI = ({
       <TalkRn.Session appId={ID} me={me}>
         <View style={{height: _height}}>
           {showConversationList ? (
-            <ConversationList
+            <TalkRn.ConversationList
               onSelectConversation={onSelectConversation}
               loadingComponent={
                 <View>

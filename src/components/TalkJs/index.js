@@ -17,7 +17,6 @@ const TalkJs = (props) => {
   } = props;
   const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
-  console.log("height", _height);
   useEffect(() => {
     if (userId && name) {
       setMe({
@@ -38,7 +37,7 @@ const TalkJs = (props) => {
           height: 600,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor:ready,
+          backgroundColor:"red",
         }}
       />
     );
