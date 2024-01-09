@@ -4,6 +4,7 @@ set -x
 
 rootGradleFile="android/build.gradle"
 appGradleFile="android/app/build.gradle"
+nl=$'\n'
 
 # Function to update compileSdkVersion
 update_compileSdkVersion() {
@@ -12,12 +13,13 @@ update_compileSdkVersion() {
 
 # Function to add resolutionStrategy in the app build.gradle
 add_appResolutionStrategy() {
-    resolutionStrategyLine="configurations.all {\\n    resolutionStrategy.force 'androidx.work:work-runtime:2.7.0'\\n}"
+     resolutionStrategyLine="configurations.all {\\ \\${nl}  resolutionStrategy.force 'androidx.work:work-runtime:2.7.0'\\${nl}}\\${nl}"
 
     # Check if the line already exists
     if ! grep -q "resolutionStrategy.force 'androidx.work:work-runtime:2.7.0'" "$appGradleFile"; then
         # Insert the resolutionStrategy line after dependencies block
-        sed -i "/dependencies {/a $resolutionStrategyLine" "$appGradleFile"
+        sed -i "/android {/a \\
+         $resolutionStrategyLine" "$appGradleFile"
     fi
 }
 
