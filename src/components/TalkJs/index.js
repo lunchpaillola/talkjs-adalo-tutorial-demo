@@ -15,6 +15,9 @@ const TalkJs = (props) => {
     participantList,
     role,
     _height,
+    loadingColor,
+    inboxHeaderColor,
+    inboxFontColor,
   } = props;
   const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
@@ -46,15 +49,7 @@ const TalkJs = (props) => {
     );
   }
 
-  if (!talkJsApplicationID || !userId || !name) {
-    return (
-      <View style={styles.centeredLoader}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  if (!me || !ID) {
+  if (!talkJsApplicationID || !userId || !name || !me || !ID) {
     return (
       <View style={styles.centeredLoader}>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -117,6 +112,9 @@ const TalkJs = (props) => {
       ID={talkJsApplicationID}
       addParticipantsToConversation={addParticipantsToConversation}
       _height={_height}
+      inboxHeaderColor={inboxHeaderColor}
+      inboxFontColor={inboxFontColor}
+      loadingColor={loadingColor}
     />
   );
 };

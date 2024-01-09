@@ -42,7 +42,28 @@
       "displayName": "Role",
       "type": "text",
       "default": "default",
-      "helpText": "The role for the participant set roles in talkJS"
+      "helpText": "The role for the participant set roles in TalkJS"
+    },
+    {
+      "name": "loadingColor",
+      "displayName": "Loader Color",
+      "type": "color",
+      "helpText": "The color of any loaders",
+      "default": "#242526"
+    },
+    {
+      "name": "inboxHeaderColor",
+      "displayName": "Inbox Header Color",
+      "type": "color",
+      "helpText": "For custom themes, specify inbox header background color for Android and iOS. Web inherits color automatically.",
+      "default": "#FFFFFF"
+    },
+    {
+      "name": "inboxFontColor",
+      "displayName": "Inbox Font Color",
+      "type": "color",
+      "helpText": "For custom themes, specify inbox header font color for Android and iOS. Web inherits color automatically.",
+      "default": "#000000"
     },
     {
       "name": "participantList",

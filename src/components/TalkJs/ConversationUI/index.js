@@ -9,7 +9,10 @@ const ConversationUI = ({
   participantList,
   conversationId,
   addParticipantsToConversation,
-  _height
+  _height,
+  inboxHeaderColor,
+  inboxFontColor,
+  loadingColor,
 }) => {
   const [conversationBuilder, setConversationBuilder] = useState(null);
   const [showConversationList, setShowConversationList] = useState(null);
@@ -42,19 +45,19 @@ const ConversationUI = ({
               onSelectConversation={onSelectConversation}
               loadingComponent={
                 <View>
-                  <ActivityIndicator size="large" color="#0000ff" />
+                  <ActivityIndicator size="large" color={loadingColor || "#242526"} />
                 </View>
               }
             />
           ) : (
             conversationBuilder && (
               <>
-                <Header onBackPress={onBackPress} />
+                <Header onBackPress={onBackPress} inboxFontColor={inboxFontColor}  inboxHeaderColor={inboxHeaderColor}/>
                 <TalkRn.Chatbox
                   conversationBuilder={conversationBuilder}
                   loadingComponent={
                     <View>
-                      <ActivityIndicator size="large" color="#0000ff" />
+                      <ActivityIndicator size="large" color={loadingColor || "#242526"} />
                     </View>
                   }
                 />
