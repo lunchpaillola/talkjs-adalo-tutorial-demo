@@ -30,6 +30,12 @@
       "helpText": "The optional user image for the call"
     },
     {
+      "name": "email",
+      "displayName": "Email",
+      "type": "text",
+      "helpText": "The user's email"
+    },
+    {
       "name": "role",
       "displayName": "Role",
       "type": "text",

@@ -1,10 +1,10 @@
 {
   "name": "talkjs",
   "description": "",
-  "version": "0.0.10",
+  "version": "0.0.13",
   "main": "index.js",
   "license": "ISC",
-  "author": "",
+  "author": "Lunch Pail Labs",
   "scripts": {
     "start": "adalo dev",
     "login": "adalo login",

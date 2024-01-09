@@ -22,7 +22,8 @@ const TalkJs = (props) => {
       setMe({
         id: userId,
         name: name,
-        photoUrl: photo.uri,
+        email: email,
+        photoUrl: photo?.uri,
         role: role,
       });
     }

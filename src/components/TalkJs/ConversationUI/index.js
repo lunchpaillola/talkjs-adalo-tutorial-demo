@@ -9,14 +9,13 @@ const ConversationUI = ({
   participantList,
   conversationId,
   addParticipantsToConversation,
-  _height,
 }) => {
   const [conversationBuilder, setConversationBuilder] = useState(null);
   const [showConversationList, setShowConversationList] = useState(null);
 
   useEffect(() => {
-    if (!conversationId || participantList.length === 0) {
-      setShowConversationList(false);
+    if (!conversationId || participantList?.length === 0) {
+      setShowConversationList(true);
     } else {
       const builder = TalkRn.getConversationBuilder(conversationId);
       builder.setParticipant(me);
