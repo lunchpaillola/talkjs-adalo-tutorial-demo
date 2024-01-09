@@ -35,7 +35,7 @@ const TalkJs = (props) => {
       <View
         style={{
           flex: 1,
-          height: 600,
+          height: _height,
           justifyContent: "center",
           alignItems: "center",
           backgroundColor:"red",
@@ -126,11 +126,5 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    height: 600,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

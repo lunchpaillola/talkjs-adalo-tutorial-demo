@@ -1,7 +1,7 @@
 {
   "name": "talkjs",
   "description": "",
-  "version": "0.0.13",
+  "version": "0.0.16",
   "main": "index.js",
   "license": "ISC",
   "author": "Lunch Pail Labs",
@@ -21,15 +21,15 @@
     "@babel/preset-flow": "^7.23.3"
   },
   "dependencies": {
-    "@notifee/react-native": "^7.8.2",
-    "@react-native-community/push-notification-ios": "^1.11.0",
-    "@react-native-firebase/app": "^18.7.3",
-    "@react-native-firebase/messaging": "^18.7.3",
-    "@talkjs/react": "^0.1.4",
-    "@talkjs/react-native": "^0.7.0",
-    "crypto-js": "^4.2.0",
-    "react-native-svg": "^14.1.0",
-    "react-native-webview": "^13.6.4",
-    "talkjs": "^0.18.0"
+    "@notifee/react-native": "7.8.2",
+    "@react-native-community/push-notification-ios": "1.11.0",
+    "@react-native-firebase/app": "18.7.3",
+    "@react-native-firebase/messaging": "18.7.3",
+    "@talkjs/react": "0.1.4",
+    "@talkjs/react-native": "0.7.0",
+    "crypto-js": "4.2.0",
+    "react-native-svg": "14.1.0",
+    "react-native-webview": "13.6.4",
+    "talkjs": "0.18.0"
   }
 }

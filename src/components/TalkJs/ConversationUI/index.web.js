@@ -26,7 +26,7 @@ const ConversationUI = ({
   );
 
   const inboxProps = {
-    style: { width: "100%", height: 600 },
+    style: { width: "100%", height: _height },
     className: "chat-container",
     loadingComponent: (
       <View style={styles.container}>
@@ -51,12 +51,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    height: 600,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

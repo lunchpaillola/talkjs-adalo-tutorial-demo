@@ -9,6 +9,7 @@ const ConversationUI = ({
   participantList,
   conversationId,
   addParticipantsToConversation,
+  _height
 }) => {
   const [conversationBuilder, setConversationBuilder] = useState(null);
   const [showConversationList, setShowConversationList] = useState(null);
@@ -35,7 +36,7 @@ const ConversationUI = ({
   return (
     <>
       <TalkRn.Session appId={ID} me={me}>
-        <View style={{height: 600}}>
+        <View style={{height: _height}}>
           {showConversationList ? (
             <TalkRn.ConversationList
               onSelectConversation={onSelectConversation}
