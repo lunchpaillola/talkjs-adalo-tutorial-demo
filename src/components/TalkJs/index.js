@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Image, StyleSheet, ActivityIndicator } from "react-native";
 import ConversationUI from "./ConversationUI";
 import sha256 from "crypto-js/sha256";
+import editorImage from "./EditorImage.png";
 
 const TalkJs = (props) => {
   const {
@@ -32,13 +33,14 @@ const TalkJs = (props) => {
   if (editor) {
     //later will flesh this out with my editor code
     return (
-      <View
+      <Image
+        source={editorImage} // Set the source to your imported image
         style={{
           flex: 1,
           height: _height,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor:"red",
+          backgroundColor: "red",
         }}
       />
     );
