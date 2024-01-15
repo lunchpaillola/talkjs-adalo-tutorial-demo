@@ -19,6 +19,9 @@ const TalkJs = (props) => {
     inboxHeaderColor,
     inboxFontColor,
   } = props;
+
+  console.log('participantList', participantList);
+
   const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
   useEffect(() => {
@@ -32,6 +35,9 @@ const TalkJs = (props) => {
       });
     }
   }, [userId, name, email, role]);
+
+  console.log('me', me);
+  console.log('me details', userId, name, email, photo);
 
   if (editor) {
     //later will flesh this out with my editor code
@@ -91,7 +97,7 @@ const TalkJs = (props) => {
           id: participantDetails?.participantDetails?.pUserId,
           name: participantDetails?.participantDetails?.pName,
           email: participantDetails?.participantDetails?.pEmail,
-          photoUrl: participantDetails?.participantDetails?.pPhoto.uri,
+          photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
           role: participantDetails?.participantDetails?.pRole,
         };
         if (isNative) {
