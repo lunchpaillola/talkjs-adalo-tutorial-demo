@@ -1,5 +1,5 @@
 {
-  "displayName": "Chat",
+  "displayName": "Chat view",
   "components": [
     {
       "name": "TalkJs",

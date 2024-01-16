@@ -20,8 +20,6 @@ const TalkJs = (props) => {
     inboxFontColor,
   } = props;
 
-  console.log('participantList', participantList);
-
   const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
   useEffect(() => {
@@ -36,11 +34,7 @@ const TalkJs = (props) => {
     }
   }, [userId, name, email, role]);
 
-  console.log('me', me);
-  console.log('me details', userId, name, email, photo);
-
   if (editor) {
-    //later will flesh this out with my editor code
     return (
       <Image
         source={editorImage} // Set the source to your imported image
