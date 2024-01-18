@@ -41,6 +41,5 @@ plutil -insert NSMicrophoneUsageDescription -string 'Chat needs microphone to re
 fi
 
 
-
 echo "Podfile configured for target $target"
 echo "Info.plist configured for microphone support"

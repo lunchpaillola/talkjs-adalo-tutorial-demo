@@ -5,28 +5,23 @@ import Header from './InboxHeader';
 
 const ConversationUI = ({
   me,
+  other,
   ID,
-  participantList,
-  conversationId,
-  addParticipantsToConversation,
   _height,
-  inboxHeaderColor,
-  inboxFontColor,
-  loadingColor,
 }) => {
   const [conversationBuilder, setConversationBuilder] = useState(null);
   const [showConversationList, setShowConversationList] = useState(null);
 
   useEffect(() => {
-    if (!conversationId || participantList?.length === 0) {
+    if (!other) {
       setShowConversationList(true);
     } else {
-      const builder = TalkRn.getConversationBuilder(conversationId);
+      const builder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me.Id, other.Id));
       builder.setParticipant(me);
-      addParticipantsToConversation(TalkRn, builder, participantList, true);
+      builder.setParticipant(other);
       setConversationBuilder(builder);
     }
-  }, [conversationId, me, participantList]);
+  }, [me, other]);
 
   const onSelectConversation = event => {
     setConversationBuilder(event.conversation);
@@ -45,19 +40,19 @@ const ConversationUI = ({
               onSelectConversation={onSelectConversation}
               loadingComponent={
                 <View>
-                  <ActivityIndicator size="large" color={loadingColor || "#242526"} />
+                  <ActivityIndicator size="large" color="#242526" />
                 </View>
               }
             />
           ) : (
             conversationBuilder && (
               <>
-                <Header onBackPress={onBackPress} inboxFontColor={inboxFontColor}  inboxHeaderColor={inboxHeaderColor}/>
+                <Header onBackPress={onBackPress}/>
                 <TalkRn.Chatbox
                   conversationBuilder={conversationBuilder}
                   loadingComponent={
                     <View>
-                      <ActivityIndicator size="large" color={loadingColor || "#242526"} />
+                      <ActivityIndicator size="large" color="#242526" />
                     </View>
                   }
                 />

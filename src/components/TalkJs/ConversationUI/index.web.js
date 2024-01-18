@@ -5,27 +5,23 @@ import { Session, Inbox } from "@talkjs/react";
 
 const ConversationUI = ({
   me,
+  other,
   ID,
-  participantList,
-  conversationId,
-  addParticipantsToConversation,
   _height,
-  inboxHeaderColor,
-  inboxFontColor,
-  loadingColor,
 }) => {
   const syncUser = useCallback(() => new Talk.User(me), []);
 
+
   const syncConversation = useCallback(
     (session) => {
-      const conversation = session.getOrCreateConversation(conversationId);
+      const otherUser =  new Talk.User(other);
+      const conversation = session.getOrCreateConversation((Talk.oneOnOneId(me.Id, other.Id)));
       conversation.setParticipant(session.me);
-
-      addParticipantsToConversation(Talk, conversation, participantList, false);
+      conversation.setParticipant(otherUser);
 
       return conversation;
     },
-    [participantList]
+    []
   );
 
   const inboxProps = {
@@ -33,11 +29,11 @@ const ConversationUI = ({
     className: "chat-container",
     loadingComponent: (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color={loadingColor || "#242526"} />
+        <ActivityIndicator size="large" color="#242526" />
       </View>
     ),
     // Add syncConversation prop only if participantList is defined and not empty
-    ...(participantList?.length > 0 && { syncConversation }),
+    ...(other && { syncConversation }),
   };
 
   return (

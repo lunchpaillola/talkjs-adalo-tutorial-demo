@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import ChevronLeft from "./icons/ChevronLeft";
 
-const Header = ({ onBackPress, inboxFontColor, inboxHeaderColor }) => {
+const Header = ({ onBackPress}) => {
   return (
     <TouchableOpacity
       onPress={onBackPress}
-      style={[styles.header, { backgroundColor: inboxHeaderColor }]}
+      style={[styles.header]}
     >
       <View style={styles.backButton}>
-        <ChevronLeft width="16" height="16" color={inboxFontColor || "gray"} />
+        <ChevronLeft width="16" height="16" color="gray" />
 
-        <Text style={[styles.title, { color: inboxFontColor }]}> Inbox</Text>
+        <Text style={[styles.title]}>Inbox</Text>
       </View>
     </TouchableOpacity>
   );

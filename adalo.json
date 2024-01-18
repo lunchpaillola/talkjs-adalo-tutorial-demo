@@ -6,12 +6,10 @@
       "manifest": "./src/components/TalkJs/manifest.json"
     }
   ],
-  "author": "Lunch Pail Labs",
-  "description": "Add direct and group chats to your Adalo apps",
+  "author": "Demo user",
+  "description": "Add professional chat to your Adalo apps",
   "logo": "./example-logo.png",
   "requiresThirdPartySubscription": true,
-  "supportURL": "https://www.lunchpaillabs.com",
-  "demoAppURL": "https://previewer.adalo.com/0d49273d-0c9c-4f72-9b6e-3714ec62fc8a",
   "iosInstallScript": "./scripts/install_ios.sh",
   "androidInstallScript": "./scripts/install_android.sh"
 }

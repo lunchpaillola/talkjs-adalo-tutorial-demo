@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet, ActivityIndicator } from "react-native";
+import {Image} from "react-native";
 import ConversationUI from "./ConversationUI";
-import sha256 from "crypto-js/sha256";
 import editorImage from "./EditorImage.png";
 
 const TalkJs = (props) => {
@@ -12,16 +11,15 @@ const TalkJs = (props) => {
     name,
     email,
     photo,
-    participantList,
-    role,
+    pName,
+    pUserId,
+    pEmail,
+    pPhoto,
     _height,
-    loadingColor,
-    inboxHeaderColor,
-    inboxFontColor,
   } = props;
 
-  const ID = talkJsApplicationID;
   const [me, setMe] = useState(null);
+  const [other, setOther] = useState(null);
   useEffect(() => {
     if (userId && name) {
       setMe({
@@ -29,15 +27,27 @@ const TalkJs = (props) => {
         name: name,
         email: email,
         photoUrl: photo?.uri,
+      });
+    }
+  }, [userId, name, email]);
+
+  useEffect(() => {
+    if (pUserId && pName) {
+      setOther({
+        id: userId,
+        name: name,
+        email: email,
+        photoUrl: photo?.uri,
         role: role,
       });
     }
-  }, [userId, name, email, role]);
+  }, [pUserId, pName, pEmail, pPhoto]);
 
+  //actually this can be further down :)
   if (editor) {
     return (
       <Image
-        source={editorImage} // Set the source to your imported image
+        source={editorImage}
         style={{
           flex: 1,
           height: _height,
@@ -49,82 +59,32 @@ const TalkJs = (props) => {
     );
   }
 
-  if (!talkJsApplicationID || !userId || !name || !me || !ID) {
-    return (
-      <View style={styles.centeredLoader}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  const createUniqueConversationId = (participantList) => {
-    const userIds = Array.from(
-      new Set(
-        participantList.map(
-          (participant) => participant?.participantDetails?.pUserId
-        )
-      )
-    ).sort((a, b) => a - b);
-
-    const uniqueSortedIds = Array.from(new Set(userIds)).sort();
-    const concatenatedIds = uniqueSortedIds.join("-");
-    const hash = sha256(concatenatedIds);
-
-    return hash.toString();
-  };
-
-  let conversationId;
-  if (participantList) {
-    conversationId = createUniqueConversationId(participantList);
-  }
-
-  const addParticipantsToConversation = (
-    TalkLibrary,
-    conversation,
-    participantList,
-    isNative
-  ) => {
-    if (participantList && participantList.length > 0) {
-      participantList.forEach((participantDetails) => {
-        let participant;
-        const participantObject = {
-          id: participantDetails?.participantDetails?.pUserId,
-          name: participantDetails?.participantDetails?.pName,
-          email: participantDetails?.participantDetails?.pEmail,
-          photoUrl: participantDetails?.participantDetails?.pPhoto?.uri,
-          role: participantDetails?.participantDetails?.pRole,
-        };
-        if (isNative) {
-          participant = participantObject;
-        } else {
-          participant = new TalkLibrary.User(participantObject);
-        }
-        conversation.setParticipant(participant);
-      });
-    }
-  };
-
   return (
-    <ConversationUI
-      conversationId={conversationId}
-      me={me}
-      participantList={participantList}
-      ID={talkJsApplicationID}
-      addParticipantsToConversation={addParticipantsToConversation}
-      _height={_height}
-      inboxHeaderColor={inboxHeaderColor}
-      inboxFontColor={inboxFontColor}
-      loadingColor={loadingColor}
-    />
+    <>
+      {editor ? (
+        <Image
+          source={editorImage}
+          style={{
+            flex: 1,
+            height: _height,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "red",
+          }}
+        />
+      ) : (
+        <ConversationUI
+          me={me}
+          other={other}
+          ID={talkJsApplicationID}
+          _height={_height}
+          inboxHeaderColor={inboxHeaderColor}
+          inboxFontColor={inboxFontColor}
+          loadingColor={loadingColor}
+        />
+      )}
+    </>
   );
 };
 
 export default TalkJs;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

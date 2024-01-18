@@ -38,11 +38,28 @@
       "helpText": "The user's email"
     },
     {
-      "name": "role",
-      "displayName": "Role",
+      "name": "pUserId",
+      "displayName": "ID",
       "type": "text",
-      "default": "default",
-      "helpText": "The role for the participant set roles in TalkJS"
+      "helpText": "The id of the user joining this conversation"
+    },
+    {
+      "name": "pName",
+      "displayName": "Name",
+      "type": "text",
+      "helpText": "The display name for the participant in the conversation"
+    },
+    {
+      "name": "pPhoto",
+      "displayName": "Photo",
+      "type": "image",
+      "helpText": "The optional user image for the call"
+    },
+    {
+      "name": "pEmail",
+      "displayName": "Email",
+      "type": "text",
+      "helpText": "The user's email"
     },
     {
       "name": "loadingColor",
