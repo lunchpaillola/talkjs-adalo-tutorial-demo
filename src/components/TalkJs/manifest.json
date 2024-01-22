@@ -38,28 +38,46 @@
       "helpText": "The user's email"
     },
     {
+      "name": "chatView",
+      "displayName": "Start in chat",
+      "type": "boolean",
+      "helpText": "Starts in chat view; add a participant if enabled"
+    },
+    {
       "name": "pUserId",
       "displayName": "ID",
       "type": "text",
-      "helpText": "The id of the user joining this conversation"
+      "helpText": "The id of the user joining this conversation",
+      "enabled": {
+        "chatView": true
+      }
     },
     {
       "name": "pName",
       "displayName": "Name",
       "type": "text",
-      "helpText": "The display name for the participant in the conversation"
+      "helpText": "The display name for the participant in the conversation",
+      "enabled": {
+        "chatView": true
+      }
     },
     {
       "name": "pPhoto",
       "displayName": "Photo",
       "type": "image",
-      "helpText": "The optional user image for the call"
+      "helpText": "The optional user image for the call",
+      "enabled": {
+        "chatView": true
+      }
     },
     {
       "name": "pEmail",
       "displayName": "Email",
       "type": "text",
-      "helpText": "The user's email"
+      "helpText": "The user's email",
+      "enabled": {
+        "chatView": true
+      }
     }
   ]
 }

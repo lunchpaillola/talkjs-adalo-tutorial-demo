@@ -8,12 +8,13 @@ const ConversationUI = ({
   other,
   ID,
   _height,
+  chatView,
 }) => {
   const [conversationBuilder, setConversationBuilder] = useState(null);
   const [showConversationList, setShowConversationList] = useState(null);
 
   useEffect(() => {
-    if (!other) {
+    if (!chatView) {
       setShowConversationList(true);
     } else {
       const builder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me.Id, other.Id));
@@ -39,7 +40,7 @@ const ConversationUI = ({
             <TalkRn.ConversationList
               onSelectConversation={onSelectConversation}
               loadingComponent={
-                <View>
+                <View style={{ height: _height, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <ActivityIndicator size="large" color="#242526" />
                 </View>
               }
@@ -51,7 +52,7 @@ const ConversationUI = ({
                 <TalkRn.Chatbox
                   conversationBuilder={conversationBuilder}
                   loadingComponent={
-                    <View>
+                    <View style={{ height: _height, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                       <ActivityIndicator size="large" color="#242526" />
                     </View>
                   }

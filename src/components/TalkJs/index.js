@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Image} from "react-native";
+import {Image, View, ActivityIndicator} from "react-native";
 import ConversationUI from "./ConversationUI";
 import editorImage from "./EditorImage.png";
 
@@ -16,10 +16,17 @@ const TalkJs = (props) => {
     pEmail,
     pPhoto,
     _height,
+    chatView
   } = props;
 
   const [me, setMe] = useState(null);
   const [other, setOther] = useState(null);
+
+  useEffect(() => {
+  console.log("me", me);
+  console.log("other", other);
+  }, [me]);
+  
   useEffect(() => {
     if (userId && name) {
       setMe({
@@ -34,30 +41,13 @@ const TalkJs = (props) => {
   useEffect(() => {
     if (pUserId && pName) {
       setOther({
-        id: userId,
-        name: name,
-        email: email,
-        photoUrl: photo?.uri,
-        role: role,
+        id: pUserId,
+        name: pName,
+        email: pEmail,
+        photoUrl: pPhoto?.uri,
       });
     }
   }, [pUserId, pName, pEmail, pPhoto]);
-
-  //actually this can be further down :)
-  if (editor) {
-    return (
-      <Image
-        source={editorImage}
-        style={{
-          flex: 1,
-          height: _height,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "red",
-        }}
-      />
-    );
-  }
 
   return (
     <>
@@ -72,19 +62,22 @@ const TalkJs = (props) => {
             backgroundColor: "red",
           }}
         />
+      ) : !me || (chatView && !other) ? (
+        <View style={{ height: _height, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
       ) : (
         <ConversationUI
           me={me}
           other={other}
           ID={talkJsApplicationID}
           _height={_height}
-          inboxHeaderColor={inboxHeaderColor}
-          inboxFontColor={inboxFontColor}
-          loadingColor={loadingColor}
+          chatView={chatView}
         />
       )}
     </>
   );
+  
 };
 
 export default TalkJs;
