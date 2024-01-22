@@ -16,7 +16,7 @@ const ConversationUI = ({
   const syncConversation = useCallback(
     (session) => {
       const otherUser =  new Talk.User(other);
-      const conversation = session.getOrCreateConversation((Talk.oneOnOneId(me.Id, other.Id)));
+      const conversation = session.getOrCreateConversation((Talk.oneOnOneId(me.id, other.id)));
       conversation.setParticipant(session.me);
       conversation.setParticipant(otherUser);
 

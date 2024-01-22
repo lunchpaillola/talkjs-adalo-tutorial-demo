@@ -17,7 +17,7 @@ const ConversationUI = ({
     if (!chatView) {
       setShowConversationList(true);
     } else {
-      const builder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me.Id, other.Id));
+      const builder = TalkRn.getConversationBuilder(TalkRn.oneOnOneId(me.id, other.id));
       builder.setParticipant(me);
       builder.setParticipant(other);
       setConversationBuilder(builder);
