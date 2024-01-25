@@ -21,11 +21,6 @@ const TalkJs = (props) => {
 
   const [me, setMe] = useState(null);
   const [other, setOther] = useState(null);
-
-  useEffect(() => {
-  console.log("me", me);
-  console.log("other", other);
-  }, [me]);
   
   useEffect(() => {
     if (userId && name) {
