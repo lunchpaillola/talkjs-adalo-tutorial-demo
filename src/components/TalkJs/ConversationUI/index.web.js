@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import Talk from "talkjs";
 import { Session, Inbox } from "@talkjs/react";
 
@@ -46,12 +46,5 @@ const ConversationUI = ({
   );
 };
 
-const styles = StyleSheet.create({
-  wrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default ConversationUI;
