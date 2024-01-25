@@ -59,7 +59,7 @@ const TalkJs = (props) => {
         />
       ) : !me || (chatView && !other) ? (
         <View style={{ height: _height, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color="#242526" />
         </View>
       ) : (
         <ConversationUI
