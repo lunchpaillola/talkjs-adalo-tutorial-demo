@@ -3,7 +3,7 @@ import {Image, View, ActivityIndicator} from "react-native";
 import ConversationUI from "./ConversationUI";
 import editorImage from "./EditorImage.png";
 
-const TalkJs = (props) => {
+const ChatView = (props) => {
   const {
     editor,
     talkJsApplicationID,
@@ -75,4 +75,4 @@ const TalkJs = (props) => {
   
 };
 
-export default TalkJs;
+export default ChatView;
