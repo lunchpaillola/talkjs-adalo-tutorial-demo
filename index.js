@@ -1,2 +1,2 @@
 // Named export must match component name in package.json
-export { default as TalkJs } from './src/components/TalkJs'
+export { default as Chatview } from './src/components/ChatView'

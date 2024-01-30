@@ -2,8 +2,8 @@
   "displayName": "Chat view",
   "components": [
     {
-      "name": "TalkJs",
-      "manifest": "./src/components/TalkJs/manifest.json"
+      "name": "Chatview",
+      "manifest": "./src/components/Chatview/manifest.json"
     }
   ],
   "author": "Demo user",
